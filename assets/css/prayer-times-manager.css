@@ -1,6 +1,11 @@
 .friday-row td {
     color: red;
 }
+
+.friday-row input {
+    color: red;
+}
+
 .today-row td {
     background-color: #5cb574;
 }
