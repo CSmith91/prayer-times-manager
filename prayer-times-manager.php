@@ -395,3 +395,52 @@ function ptm_get_prayer_time($atts) {
     return $time ? date('H:i', strtotime($time)) : '';
 }
 add_shortcode('prayer_time', 'ptm_get_prayer_time');
+
+// ---------- STEP 8: Enqueue all scripts ----------
+function ptm_enqueue_assets() {
+    // Enqueue jsPDF library from CDN
+    wp_enqueue_script(
+        'jspdf',
+        'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+        array(),
+        '2.5.1',
+        true
+    );
+
+    // Enqueue autoTable plugin for jsPDF
+    wp_enqueue_script(
+        'jspdf-autotable',
+        'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js',
+        array('jspdf'),
+        '3.5.23',
+        true
+    );
+
+    // Enqueue custom JavaScript file
+    wp_enqueue_script(
+        'ptm-export-month',
+        plugin_dir_url(__FILE__) . 'assets/js/export-month.js',
+        array('jspdf', 'jspdf-autotable'),
+        '1.0.0',
+        true
+    );
+
+    // Enqueue custom CSS file
+    wp_enqueue_style(
+        'ptm-export-month',
+        plugin_dir_url(__FILE__) . 'assets/css/export-month.css',
+        array(),
+        '1.0.0'
+    );
+
+    // Localize script to pass PHP variables to JavaScript
+    wp_localize_script(
+        'ptm-export-month',
+        'ptm_vars',
+        array(
+            'selectedMonth' => isset($_GET['ptm_month']) ? intval($_GET['ptm_month']) : date('n'),
+            'selectedYear'  => isset($_GET['ptm_year']) ? intval($_GET['ptm_year']) : date('Y'),
+        )
+    );
+}
+add_action('wp_enqueue_scripts', 'ptm_enqueue_assets');

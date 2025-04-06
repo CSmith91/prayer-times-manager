@@ -87,30 +87,6 @@ function ptm_prayer_times_shortcode($atts) {
             <p>We haven't added prayer times for <?php echo $months[$selected_month] . ' ' . $selected_year; ?> yet. Please check again soon!</p>
         <?php endif; ?>
     </div>
-
-    <!-- PDF Export Script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script>
-        function ptmDownloadPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('landscape');
-            doc.autoTable({ html: '#ptm-table' });
-            doc.save("Prayer-Times-<?php echo $selected_month . '-' . $selected_year; ?>.pdf");
-        }
-    </script>
-    <style>
-        #ptm-container table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        #ptm-container th, #ptm-container td {
-            text-align: center;
-        }
-        #ptm-container button {
-            margin: 10px 0;
-        }
-    </style>
     <?php
 
     return ob_get_clean();

@@ -1,0 +1,11 @@
+#ptm-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+#ptm-container th, #ptm-container td {
+    text-align: center;
+}
+#ptm-container button {
+    margin: 10px 0;
+}
