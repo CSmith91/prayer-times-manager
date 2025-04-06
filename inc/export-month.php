@@ -26,23 +26,25 @@ function ptm_prayer_times_shortcode($atts) {
     );
     ?>
     <div id="ptm-container">
-        <form method="get" action="">
-            <label for="ptm_month">Month:</label>
-            <select name="ptm_month" id="ptm_month">
-                <?php foreach ($months as $num => $name): ?>
-                    <option value="<?php echo $num; ?>" <?php selected($selected_month, $num); ?>><?php echo esc_html($name); ?></option>
-                <?php endforeach; ?>
-            </select>
+        <div id="form-container">
+            <form method="get" action="">
+                <label for="ptm_month">Month:</label>
+                <select name="ptm_month" id="ptm_month">
+                    <?php foreach ($months as $num => $name): ?>
+                        <option value="<?php echo $num; ?>" <?php selected($selected_month, $num); ?>><?php echo esc_html($name); ?></option>
+                    <?php endforeach; ?>
+                </select>
 
-            <label for="ptm_year">Year:</label>
-            <select name="ptm_year" id="ptm_year">
-                <?php for ($y = date('Y') - 1; $y <= date('Y') + 3; $y++): ?>
-                    <option value="<?php echo $y; ?>" <?php selected($selected_year, $y); ?>><?php echo $y; ?></option>
-                <?php endfor; ?>
-            </select>
+                <label for="ptm_year">Year:</label>
+                <select name="ptm_year" id="ptm_year">
+                    <?php for ($y = date('Y') - 1; $y <= date('Y') + 3; $y++): ?>
+                        <option value="<?php echo $y; ?>" <?php selected($selected_year, $y); ?>><?php echo $y; ?></option>
+                    <?php endfor; ?>
+                </select>
 
-            <input type="submit" value="View">
-        </form>
+                <input type="submit" value="View">
+            </form>
+        </div>
 
         <?php if ($rows): ?>
             <div id="download-container">
