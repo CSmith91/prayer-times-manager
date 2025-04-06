@@ -67,7 +67,7 @@ function ptm_prayer_times_shortcode($atts) {
                 <tbody>
                     <?php foreach ($rows as $row): ?>
                         <tr>
-                            <td><?php echo esc_html(date('F j, Y', strtotime($row->prayer_date))); ?></td>
+                            <td><?php echo esc_html(date('j F Y', strtotime($row->prayer_date))); ?></td>
                             <td><?php echo esc_html(substr($row->fajr_begins, 0, 5)); ?></td>
                             <td><?php echo esc_html(substr($row->fajr_iqamah, 0, 5)); ?></td>
                             <td><?php echo esc_html(substr($row->sunrise_begins, 0, 5)); ?></td>

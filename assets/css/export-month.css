@@ -1,11 +1,104 @@
+#ptm-container {
+    max-width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form Controls */
+#ptm-container form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#ptm-container label {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+#ptm-container select,
+#ptm-container input[type="submit"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+#ptm-container select:focus,
+#ptm-container input[type="submit"]:focus {
+    border-color: #5cb574;
+    outline: none;
+}
+
+#ptm-container input[type="submit"] {
+    background-color: #5cb574;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+#ptm-container input[type="submit"]:hover {
+    background-color: #4aa25e;
+}
+
+/* Download Button */
+#ptm-container button {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+#ptm-container button:hover {
+    background-color: #000;
+}
+
+/* Table */
 #ptm-container table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden;
 }
-#ptm-container th, #ptm-container td {
-    text-align: center;
+
+#ptm-container th {
+    background-color: #f4f4f4;
+    padding: 12px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
 }
-#ptm-container button {
-    margin: 10px 0;
+
+#ptm-container td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #eee;
+}
+
+#ptm-container tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Responsive (optional) */
+@media (max-width: 768px) {
+    #ptm-container form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #ptm-container table,
+    #ptm-container th,
+    #ptm-container td {
+        font-size: 13px;
+    }
 }

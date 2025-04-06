@@ -159,7 +159,7 @@ function ptm_admin_page() {
                             $is_today = ($row_date == $current_date);
                             ?>
                             <tr<?php if ($is_friday) echo ' class="friday-row"'; if ($is_today) echo ' class="today-row"'; ?>>
-                                <td><?php echo esc_html(date('F j, Y', strtotime($row_date))); ?></td>
+                                <td><?php echo esc_html(date('j F Y', strtotime($row_date))); ?></td>
                                 <?php
                                 $fields = [
                                     'fajr_begins',
