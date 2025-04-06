@@ -1,3 +1,12 @@
+:root {
+    --rich-green: #2c8c2c;
+    --gold: #9aa54a;
+    --text-brown: #3c3c23;
+    --pale-green: #5cb574;
+    --soft-background: #f4f4f4;
+    --hover-highlight: #e8f5e8;
+}
+
 #ptm-container {
     max-width: 100%;
     padding: 20px;
@@ -32,12 +41,12 @@
 
 #ptm-container select:focus,
 #ptm-container input[type="submit"]:focus {
-    border-color: #5cb574;
+    border-color: var(--pale-green);
     outline: none;
 }
 
 #ptm-container input[type="submit"] {
-    background-color: #5cb574;
+    background-color: var(--pale-green);
     color: #fff;
     font-weight: bold;
     cursor: pointer;
@@ -45,12 +54,18 @@
 }
 
 #ptm-container input[type="submit"]:hover {
-    background-color: #4aa25e;
+    background-color: var(--rich-green);
 }
 
 /* Download Button */
+#download-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
 #ptm-container button {
-    background-color: #333;
+    background-color: var(--text-brown);
     color: #fff;
     padding: 8px 16px;
     border: none;
@@ -89,7 +104,7 @@
     background-color: #fafafa;
 }
 
-/* Responsive (optional) */
+/* Responsive*/
 @media (max-width: 768px) {
     #ptm-container form {
         flex-direction: column;

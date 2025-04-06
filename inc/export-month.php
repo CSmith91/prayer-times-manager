@@ -45,8 +45,10 @@ function ptm_prayer_times_shortcode($atts) {
         </form>
 
         <?php if ($rows): ?>
-            <button onclick="ptmDownloadPDF()">Download as PDF</button>
-
+            <div id="download-container">
+                <button id="download-btn" onclick="ptmDownloadPDF()">Download as PDF</button>
+            </div>
+            
             <table id="ptm-table" border="1" cellpadding="5" cellspacing="0">
                 <thead>
                     <tr>
