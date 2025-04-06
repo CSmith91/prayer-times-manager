@@ -130,7 +130,7 @@
     background-color: #000;
 }
 
-/* Table */
+/* Table Styling */
 #ptm-container table {
     width: 100%;
     border-collapse: collapse;
@@ -153,6 +153,31 @@
 #ptm-container tbody tr:nth-child(even) {
     background-color: #fafafa;
 }
+
+/* Table Rows */
+#ptm-container tbody tr {
+    transition: background-color 0.3s ease; /* Adjust duration and timing as needed */
+}
+
+/* Hover Effect */
+#ptm-container tbody tr:hover {
+    background-color: var(--hover-highlight);
+    cursor: default;
+}
+
+/* Friday Rows */
+#ptm-container tbody tr.friday {
+    background-color: rgba(255, 230, 90, 0.4);
+}
+#ptm-container tbody tr.friday:hover {
+    background-color: rgba(255, 229, 80, 0.644);
+}
+
+/* Today's Date */
+#ptm-container tbody tr.today {
+    border: 2px solid var(--pale-green);
+}
+
 
 /* Responsive*/
 @media (max-width: 768px) {
