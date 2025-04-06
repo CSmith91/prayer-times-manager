@@ -195,14 +195,6 @@ function ptm_admin_page() {
             <?php submit_button('Save Changes'); ?>
         </form>
     </div>
-    <style>
-        .friday-row td {
-            color: red;
-        }
-        .today-row td {
-            background-color: #5cb574;
-        }
-    </style>
     <?php
 }
 
@@ -444,3 +436,18 @@ function ptm_enqueue_assets() {
     );
 }
 add_action('wp_enqueue_scripts', 'ptm_enqueue_assets');
+
+function ptm_enqueue_admin_styles($hook) {
+    // Load only on your plugin's admin page
+    if ($hook !== 'toplevel_page_prayer-times-manager') {
+        return;
+    }
+
+    wp_enqueue_style(
+        'ptm-admin-styles',
+        plugin_dir_url(__FILE__) . 'assets/css/prayer-times-manager.css',
+        array(),
+        '1.0.0'
+    );
+}
+add_action('admin_enqueue_scripts', 'ptm_enqueue_admin_styles');
