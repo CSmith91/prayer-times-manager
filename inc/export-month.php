@@ -26,25 +26,31 @@ function ptm_prayer_times_shortcode($atts) {
     );
     ?>
     <div id="ptm-container">
-        <div id="form-container">
-            <form method="get" action="">
+    <div id="form-container">
+        <form method="get" action="">
+            <div class="input-container">
                 <label for="ptm_month">Month:</label>
                 <select name="ptm_month" id="ptm_month">
                     <?php foreach ($months as $num => $name): ?>
                         <option value="<?php echo $num; ?>" <?php selected($selected_month, $num); ?>><?php echo esc_html($name); ?></option>
                     <?php endforeach; ?>
                 </select>
+            </div>
 
+            <div class="input-container">
                 <label for="ptm_year">Year:</label>
                 <select name="ptm_year" id="ptm_year">
                     <?php for ($y = date('Y') - 1; $y <= date('Y') + 3; $y++): ?>
                         <option value="<?php echo $y; ?>" <?php selected($selected_year, $y); ?>><?php echo $y; ?></option>
                     <?php endfor; ?>
                 </select>
+            </div>
 
+            <div class="submit-container">
                 <input type="submit" value="View">
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
 
         <?php if ($rows): ?>
             <div id="download-container">

@@ -16,22 +16,33 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Form Container */
+#form-container {
+    width: 50%;
+    margin: 0 auto;
+}
+
 /* Form Controls */
-#ptm-container form {
+#form-container form {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: space-between;
 }
 
-#ptm-container label {
+.input-container {
+    flex: 1;
+    min-width: 45%;
+}
+
+#form-container label {
     font-weight: 500;
     margin-right: 5px;
 }
 
-#ptm-container select,
-#ptm-container input[type="submit"] {
+#form-container select {
+    width: 100%;
     padding: 8px 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -39,21 +50,37 @@
     transition: border-color 0.3s ease;
 }
 
-#ptm-container select:focus,
-#ptm-container input[type="submit"]:focus {
+#form-container select:focus {
     border-color: var(--pale-green);
     outline: none;
 }
 
-#ptm-container input[type="submit"] {
+/* Submit Button */
+.submit-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.submit-container input {
+    width: 50%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
     background-color: var(--pale-green);
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    border: none;
 }
 
-#ptm-container input[type="submit"]:hover {
+.submit-container input:focus {
+    border-color: var(--rich-green);
+    outline: none;
+}
+
+.submit-container input:hover {
     background-color: var(--rich-green);
 }
 
@@ -68,6 +95,29 @@
     background-color: var(--text-brown);
     color: #fff;
     padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+#ptm-container button:hover {
+    background-color: #000;
+}
+
+/* Download Button */
+#download-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+#ptm-container button {
+    background-color: var(--text-brown);
+    color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
