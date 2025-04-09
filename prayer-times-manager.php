@@ -490,7 +490,7 @@ function enqueue_prayer_assets() {
         // Enqueue CSS
         wp_enqueue_style(
             'prayer-times-style', 
-            plugin_dir_url(__FILE__) . 'assets/css/styles.css', 
+            plugin_dir_url(__FILE__) . 'assets/css/chrishallah.css', 
             array(), 
             '1.0.0'
         );
