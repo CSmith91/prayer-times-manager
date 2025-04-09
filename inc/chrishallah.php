@@ -42,11 +42,20 @@ if (!defined('ABSPATH')) {
                     'start'  => 'Begins',
                     'iqamah' => 'Iqamah'
                 );
+                $prayerIcons = array(
+                    'Fajr'     => 'fas fa-mountain-sun',
+                    'Sunrise'  => '',
+                    'Zuhr'     => 'fa-solid fa-sun',
+                    'Asr'      => 'fa-solid fa-cloud-sun',
+                    'Maghrib'  => 'fa-solid fa-cloud-moon',
+                    'Isha'     => 'fa-solid fa-moon',
+                );
                 
                 foreach ($prayers as $prayerName => $fields) :
             ?>
 
                 <div class="prayer-cell" id="<?php echo esc_attr($prayerName); ?>-cell">
+                    <i class="<?php echo esc_attr($prayerIcons[$prayerName]); ?> prayer-icon"></i>
                     <span class="prayer-name"><?php echo esc_html($prayerName); ?></span>
                     <span class="prayer-times-container">
                         <span class="prayer-time">
