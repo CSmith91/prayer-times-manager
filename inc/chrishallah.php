@@ -48,16 +48,18 @@ if (!defined('ABSPATH')) {
 
                 <div class="prayer-cell" id="<?php echo esc_attr($prayerName); ?>-cell">
                     <span class="prayer-name"><?php echo esc_html($prayerName); ?></span>
-                    <span class="prayer-time">
-                        <?php echo esc_html($labels['start']); ?><br>
-                        <?php echo do_shortcode('[prayer_time prayer="' . $fields[0] . '"]'); ?>
-                    </span>
-                    <?php if (count($fields) > 1) : ?>
-                        <span class="prayer-iqamah">
-                            <?php echo esc_html($labels['iqamah']); ?><br>
-                            <?php echo do_shortcode('[prayer_time prayer="' . $fields[1] . '"]'); ?>
+                    <span class="prayer-times-container">
+                        <span class="prayer-time">
+                            <?php echo esc_html($labels['start']); ?><br>
+                            <?php echo do_shortcode('[prayer_time prayer="' . $fields[0] . '"]'); ?>
                         </span>
-                    <?php endif; ?>
+                        <?php if (count($fields) > 1) : ?>
+                            <span class="prayer-iqamah">
+                                <?php echo esc_html($labels['iqamah']); ?><br>
+                                <?php echo do_shortcode('[prayer_time prayer="' . $fields[1] . '"]'); ?>
+                            </span>
+                        <?php endif; ?>
+                    </span>
                 </div>
             <?php endforeach; ?>
         </div>

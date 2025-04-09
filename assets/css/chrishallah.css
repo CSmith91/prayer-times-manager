@@ -9,7 +9,7 @@
 
 body {
     color: var(--text-brown);
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .hide {
@@ -42,13 +42,19 @@ body {
 .prayer-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr); /* 5 equal columns for main prayers */
-    gap: 12px;
+    gap: 16px;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Default Prayer Cell */
 .prayer-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers children vertically */
+    align-items: center;     /* Centers children horizontally */
+    text-align: center;      /* Ensures text inside is centered */
+
     background: var(--soft-background);
     padding: 15px;
     border-radius: 12px;
@@ -59,15 +65,33 @@ body {
 
 .prayer-cell:hover {
     background-color: var(--hover-highlight);
-    transform: translateY(-3px);
+    transform: scale(1.03);
+}
+
+.prayer-cell::before {
+    content: "\2600";
+    display: block;
+    font-size: 2em;
+    color: var(--gold);
+    margin-bottom: 5px;
+}
+
+.prayer-times-container {
+    display: flex;
+    flex-direction: row;  /* This is the default, but it's explicit here */
+    justify-content: center; /* Centers them horizontally */
+    align-items: baseline;;  /* Vertically centers the content */
+    gap: 20px;  /* Adjust the gap as needed */
 }
 
 /* Prayer Text Styling */
 .prayer-name {
-    display: block;
+    display: inline-block;
     font-weight: bold;
     font-size: 1.1em;
     margin-bottom: 5px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--pale-green);
     color: var(--rich-green);
 }
 
@@ -75,13 +99,13 @@ body {
     display: block;
     font-size: 1em;
     color: var(--pale-green);
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 5px;
 }
 
 .prayer-iqamah {
     display: block;
-    font-size: 1.1em;
+    font-size: 1em;
     color: var(--gold);
     font-weight: bold;
 }
@@ -120,7 +144,18 @@ body {
     opacity: 1;
 }
 
-/* Focused Prayer (e.g., current prayer) */
+@keyframes subtleFocus {
+    0% {
+        box-shadow: 0 0 12px 6px var(--gold);
+    }
+    50% {
+        box-shadow: 0 0 12px 6px var(--rich-green);
+    }
+    100% {
+        box-shadow: 0 0 12px 6px var(--gold);
+    }
+}
+
 .focus {
-    box-shadow: 0 0 12px 6px var(--gold);
+    animation: subtleFocus 10s infinite ease-in-out;
 }
