@@ -437,6 +437,69 @@ function ptm_enqueue_assets() {
 }
 add_action('wp_enqueue_scripts', 'ptm_enqueue_assets');
 
+// WIDGET REFERENCE & SHORTCODE GEN
+function ptm_render_prayer_times_widget() {
+    ob_start();
+    // Use the plugin_dir_path() function to reference the file relative to the main plugin file.
+    include plugin_dir_path(__FILE__) . 'inc/chrishallah.php';
+    return ob_get_clean();
+}
+
+add_shortcode('prayer_times_widget', 'ptm_render_prayer_times_widget');
+
+// NON-ADMIN ENQUEUING (The widget, inc reading the data from the database, js and css)
+function enqueue_prayer_assets() {
+    if ( ! is_admin() ) { // Load only on frontend
+
+        // Enqueue JavaScript
+        wp_enqueue_script('ptm-prayer-times', plugin_dir_url(__FILE__) . 'assets/js/prayer-timer.js', array(), '1.0', true);
+
+        // Get prayer data from DB
+        global $wpdb;
+        $table = $wpdb->prefix . 'prayer_times';
+        $today = date('Y-m-d');
+        $row = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table WHERE prayer_date = %s", $today));
+    
+        if ($row) { 
+            $iqamah = [
+                'fajr'    => $row->fajr_iqamah,
+                'zuhr'    => $row->zuhr_iqamah,
+                'asr'     => $row->asr_iqamah,
+                'maghrib' => $row->maghrib_iqamah,
+                'isha'    => $row->isha_iqamah,
+            ];
+
+            $timestamps = [
+                'timestamp-fajr'    => strtotime($row->fajr_iqamah),
+                'timestamp-zuhr'    => strtotime($row->zuhr_iqamah),
+                'timestamp-asr'     => strtotime($row->asr_iqamah),
+                'timestamp-maghrib' => strtotime($row->maghrib_iqamah),
+                'timestamp-isha'    => strtotime($row->isha_iqamah),
+            ];
+    
+            $data = [
+                'iqamah_times' => $iqamah,
+                'timestamps'   => $timestamps
+            ];
+        } else {
+            $data = [];
+        }
+    
+        wp_localize_script('ptm-prayer-times', 'ptmData', $data);
+
+        // Enqueue CSS
+        wp_enqueue_style(
+            'prayer-times-style', 
+            plugin_dir_url(__FILE__) . 'assets/css/styles.css', 
+            array(), 
+            '1.0.0'
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_prayer_assets');
+
+// ADMIN ENQUEUING (Styles for the table)
+
 function ptm_enqueue_admin_styles($hook) {
     // Load only on your plugin's admin page
     if ($hook !== 'toplevel_page_prayer-times-manager') {
