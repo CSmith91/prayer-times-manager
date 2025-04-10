@@ -160,3 +160,17 @@ body {
 .focus {
     animation: subtleFocus 10s infinite ease-in-out;
 }
+
+/* Tablet View */
+@media only screen and (max-width: 1024px) {
+    .prayer-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    }
+}
+
+/* Mobile View */
+@media only screen and (max-width: 767px) {
+    .prayer-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    }
+}

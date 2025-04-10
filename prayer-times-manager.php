@@ -2,7 +2,7 @@
 /*
 Plugin Name: Chrissmi Prayer Times Manager
 Description: A plugin to manage a full calendar year of daily prayer times.
-Version: 1.0.0
+Version: 1.1.0
 Author: Chris Smith
 */
 
