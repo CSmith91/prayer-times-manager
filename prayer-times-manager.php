@@ -2,7 +2,7 @@
 /*
 Plugin Name: Chrissmi Prayer Times Manager
 Description: A plugin to manage a full calendar year of daily prayer times.
-Version: 1.1.0
+Version: 1.5.0
 Author: Chris Smith
 */
 
@@ -40,6 +40,8 @@ function ptm_create_prayer_times_table() {
         maghrib_iqamah time NULL,
         isha_begins time NULL,
         isha_iqamah time NULL,
+        jumuah_first time NULL, 
+        jumuah_second time NULL,
         PRIMARY KEY  (id),
         UNIQUE KEY prayer_date (prayer_date)
     ) $charset_collate;";
@@ -141,6 +143,8 @@ function ptm_admin_page() {
                         <th>Sunrise</th>
                         <th>Zuhr Begins</th>
                         <th>Zuhr Iqamah</th>
+                        <th>First Ju'muah</th>
+                        <th>Second Ju'muah</th>
                         <th>Asr Begins</th>
                         <th>Asr Iqamah</th>
                         <th>Maghrib Begins</th>
@@ -500,7 +504,7 @@ function enqueue_prayer_assets() {
             'font-awesome',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css',
             array(),
-            '6.7.2'
+            '6.7.0'
         );
     }
 }
