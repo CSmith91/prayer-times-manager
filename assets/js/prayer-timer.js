@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Conditionally define prayerTimes array
     const prayerTimes = [];
 
+    // Define message that will show atop the widget - jumuah shows different text
+    let message = '';
+
     // Always include Fajr
     prayerTimes.push({
         name: 'Fajr',
@@ -30,12 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isFriday) {
         // On Friday: include Jumuah first and second
         prayerTimes.push({
-            name: 'Jumuah – 1st',
+            name: 'Jumu\'ah',
+            order: 'First',
             time: ptmData.timestamps['timestamp-jumuah_first'],
             formattedTime: ptmData.iqamah_times.jumuah_first
         });
         prayerTimes.push({
-            name: 'Jumuah – 2nd',
+            name: 'Jumu\'ah',
+            order: 'Second',
             time: ptmData.timestamps['timestamp-jumuah_second'],
             formattedTime: ptmData.iqamah_times.jumuah_second
         });
@@ -78,11 +83,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const seconds = remaining % 60;
             const formattedTimeWithoutSeconds = nextPrayer.formattedTime.split(':').slice(0, 2).join(':');
 
+            if (!nextPrayer.order){
+                message = `Next Prayer: <strong>${nextPrayer.name} Iqamah</strong> at <strong>${formattedTimeWithoutSeconds}</strong>`;
+            }
+            else{
+                nextPrayer.order === 'First' ? message = `<strong>First ${nextPrayer.name} Khutbah</strong> starts at <strong>${formattedTimeWithoutSeconds}</strong>`: message = `<strong>Second ${nextPrayer.name} Khutbah</strong> starts at <strong>${formattedTimeWithoutSeconds}</strong>`;;
+            }
 
-            document.getElementById('prayer-next').innerHTML =
-                `Next Prayer: <strong>${nextPrayer.name} Iqamah</strong> at <strong>${formattedTimeWithoutSeconds}</strong>`;
-            document.getElementById('prayer-countdown').innerHTML =
-                `${hours}h ${minutes}m ${seconds}s`;
+            document.getElementById('prayer-next').innerHTML = message;
+            document.getElementById('prayer-countdown').innerHTML = `${hours}h ${minutes}m ${seconds}s`;
         }
 
         setInterval(updateCountdown, 1000);

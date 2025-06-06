@@ -480,6 +480,8 @@ function enqueue_prayer_assets() {
             $iqamah = [
                 'fajr'    => $row->fajr_iqamah,
                 'zuhr'    => $row->zuhr_iqamah,
+                'jumuah_first' => $row->jumuah_first,
+                'jumuah_second' => $row->jumuah_second,
                 'asr'     => $row->asr_iqamah,
                 'maghrib' => $row->maghrib_iqamah,
                 'isha'    => $row->isha_iqamah,
@@ -488,6 +490,8 @@ function enqueue_prayer_assets() {
             $timestamps = [
                 'timestamp-fajr'    => strtotime($row->fajr_iqamah),
                 'timestamp-zuhr'    => strtotime($row->zuhr_iqamah),
+                'timestamp-jumuah_first'    => strtotime($row->jumuah_first),
+                'timestamp-jumuah_second'    => strtotime($row->jumuah_second),
                 'timestamp-asr'     => strtotime($row->asr_iqamah),
                 'timestamp-maghrib' => strtotime($row->maghrib_iqamah),
                 'timestamp-isha'    => strtotime($row->isha_iqamah),
