@@ -6,13 +6,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const nowTimestamp = Math.floor(new Date().getTime() / 1000 - new Date().getTimezoneOffset() * 60);
 
-    const prayerTimes = [
-        { name: 'Fajr', time: ptmData.timestamps['timestamp-fajr'], formattedTime: ptmData.iqamah_times.fajr },
-        { name: 'Zuhr', time: ptmData.timestamps['timestamp-zuhr'], formattedTime: ptmData.iqamah_times.zuhr },
-        { name: 'Asr', time: ptmData.timestamps['timestamp-asr'], formattedTime: ptmData.iqamah_times.asr },
-        { name: 'Maghrib', time: ptmData.timestamps['timestamp-maghrib'], formattedTime: ptmData.iqamah_times.maghrib },
-        { name: 'Isha', time: ptmData.timestamps['timestamp-isha'], formattedTime: ptmData.iqamah_times.isha }
-    ];
+    // Check if today is Friday (getDay() returns 5 for Friday)
+    const today = new Date();
+    const isFriday = today.getDay() === 5;
+
+    // Conditionally define prayerTimes array
+    const prayerTimes = [];
+
+    // Always include Fajr
+    prayerTimes.push({
+        name: 'Fajr',
+        time: ptmData.timestamps['timestamp-fajr'],
+        formattedTime: ptmData.iqamah_times.fajr
+    });
+
+    // Sunrise
+    prayerTimes.push({
+        name: 'Sunrise',
+        time: ptmData.timestamps['timestamp-sunrise'],
+        formattedTime: ptmData.iqamah_times.sunrise || ''
+    });
+
+    if (isFriday) {
+        // On Friday: include Jumuah first and second
+        prayerTimes.push({
+            name: 'Jumuah – 1st',
+            time: ptmData.timestamps['timestamp-jumuah_first'],
+            formattedTime: ptmData.iqamah_times.jumuah_first
+        });
+        prayerTimes.push({
+            name: 'Jumuah – 2nd',
+            time: ptmData.timestamps['timestamp-jumuah_second'],
+            formattedTime: ptmData.iqamah_times.jumuah_second
+        });
+    } else {
+        // Regular Zuhr on non-Fridays
+        prayerTimes.push({
+            name: 'Zuhr',
+            time: ptmData.timestamps['timestamp-zuhr'],
+            formattedTime: ptmData.iqamah_times.zuhr
+        });
+    }
+
+    // Continue with Asr, Maghrib, Isha
+    ['asr', 'maghrib', 'isha'].forEach(prayer => {
+        prayerTimes.push({
+            name: prayer.charAt(0).toUpperCase() + prayer.slice(1),
+            time: ptmData.timestamps[`timestamp-${prayer}`],
+            formattedTime: ptmData.iqamah_times[prayer]
+        });
+    });
 
     const lastPrayer = ptmData.timestamps['timestamp-isha'];
 

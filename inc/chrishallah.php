@@ -4,11 +4,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Registers the block using the metadata loaded from the `block.json` file.
- * Behind the scenes, it registers also all assets so they can be enqueued
- * through the block editor in the corresponding context.
- *
- * @see https://developer.wordpress.org/reference/functions/register_block_type/
+ * The visual element of the shortcode / widget
  */
 
 ?>
@@ -29,43 +25,77 @@ if (!defined('ABSPATH')) {
     <div class="prayer-times-table">
         <div class="prayer-grid">
             <?php 
-                // Define the prayers with corresponding shortcode attributes.
-                $prayers = array(
-                    'Fajr'     => array('fajr_start', 'fajr_iqamah'),
-                    'Sunrise'  => array('sunrise'),
-                    'Zuhr'     => array('zuhr_start', 'zuhr_iqamah'),
-                    'Asr'      => array('asr_start', 'asr_iqamah'),
-                    'Maghrib'  => array('maghrib_start', 'maghrib_iqamah'),
-                    'Isha'     => array('isha_start', 'isha_iqamah'),
-                );
+                // Determine if today is Friday (WP weekday: Mon=1 ... Sun=7)
+                $wp_ts      = current_time( 'timestamp' );
+                $weekday    = date( 'N', $wp_ts );  // Friday == 5
+                $is_friday  = ( $weekday == 5 );
+
+                // Base set of prayers
+                if ( $is_friday ) {
+                    // On Friday, use Jumu'ah instead of Zuhr
+                    $prayers = array(
+                        'Fajr'        => array( 'fajr_start',        'fajr_iqamah'    ),
+                        'Sunrise'     => array( 'sunrise'                            ),
+                        'Jumu\'ah' => array( 'jumuah_first',  'jumuah_second'  ),
+                        'Asr'         => array( 'asr_start',         'asr_iqamah'     ),
+                        'Maghrib'     => array( 'maghrib_start',     'maghrib_iqamah' ),
+                        'Isha'        => array( 'isha_start',        'isha_iqamah'    ),
+                    );
+
+                    // (Optional) Override icons for Jumu‘ah
+                    $prayerIcons = array(
+                        'Fajr'           => 'fas fa-mountain-sun',
+                        'Sunrise'        => '',
+                        'Jumu\'ah'   => 'fas fa-mosque',
+                        'Asr'            => 'fas fa-cloud-sun',
+                        'Maghrib'        => 'fas fa-cloud-moon',
+                        'Isha'           => 'fas fa-moon',
+                    );
+                } else {
+                    // Normal days
+                    $prayers = array(
+                        'Fajr'     => array( 'fajr_start', 'fajr_iqamah'    ),
+                        'Sunrise'  => array( 'sunrise'                          ),
+                        'Zuhr'     => array( 'zuhr_start', 'zuhr_iqamah'    ),
+                        'Asr'      => array( 'asr_start',  'asr_iqamah'     ),
+                        'Maghrib'  => array( 'maghrib_start','maghrib_iqamah'),
+                        'Isha'     => array( 'isha_start', 'isha_iqamah'    ),
+                    );
+
+                    $prayerIcons = array(
+                        'Fajr'     => 'fas fa-mountain-sun',
+                        'Sunrise'  => '',
+                        'Zuhr'     => 'fas fa-sun',
+                        'Asr'      => 'fas fa-cloud-sun',
+                        'Maghrib'  => 'fas fa-cloud-moon',
+                        'Isha'     => 'fas fa-moon',
+                    );
+                }
+
                 $labels = array(
                     'start'  => 'Begins',
-                    'iqamah' => 'Iqamah'
+                    'iqamah' => 'Iqamah',
+                    'jumuah_first' => 'First',
+                    'jumuah_second' => 'Second',
                 );
-                $prayerIcons = array(
-                    'Fajr'     => 'fas fa-mountain-sun',
-                    'Sunrise'  => '',
-                    'Zuhr'     => 'fa-solid fa-sun',
-                    'Asr'      => 'fa-solid fa-cloud-sun',
-                    'Maghrib'  => 'fa-solid fa-cloud-moon',
-                    'Isha'     => 'fa-solid fa-moon',
-                );
-                
-                foreach ($prayers as $prayerName => $fields) :
-            ?>
 
-                <div class="prayer-cell" id="<?php echo esc_attr($prayerName); ?>-cell">
-                    <i class="<?php echo esc_attr($prayerIcons[$prayerName]); ?> prayer-icon"></i>
-                    <span class="prayer-name"><?php echo esc_html($prayerName); ?></span>
+                // Render each prayer cell
+                foreach ( $prayers as $prayerName => $fields ) :
+            ?>
+                <div class="prayer-cell" id="<?php echo esc_attr( $prayerName ); ?>-cell">
+                    <?php if ( ! empty( $prayerIcons[ $prayerName ] ) ) : ?>
+                        <i class="<?php echo esc_attr( $prayerIcons[ $prayerName ] ); ?> prayer-icon"></i>
+                    <?php endif; ?>
+                    <span class="prayer-name"><?php echo esc_html( $prayerName ); ?></span>
                     <span class="prayer-times-container">
                         <span class="prayer-time">
-                            <?php echo esc_html($labels['start']); ?><br>
-                            <?php echo do_shortcode('[prayer_time prayer="' . $fields[0] . '"]'); ?>
+                            <?php echo esc_html( $labels['start'] ); ?><br>
+                            <?php echo do_shortcode( '[prayer_time prayer="' . $fields[0] . '"]' ); ?>
                         </span>
-                        <?php if (count($fields) > 1) : ?>
+                        <?php if ( isset( $fields[1] ) ) : ?>
                             <span class="prayer-iqamah">
-                                <?php echo esc_html($labels['iqamah']); ?><br>
-                                <?php echo do_shortcode('[prayer_time prayer="' . $fields[1] . '"]'); ?>
+                                <?php echo esc_html( $labels['iqamah'] ); ?><br>
+                                <?php echo do_shortcode( '[prayer_time prayer="' . $fields[1] . '"]' ); ?>
                             </span>
                         <?php endif; ?>
                     </span>
@@ -74,5 +104,3 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 </div>
-
-<?php

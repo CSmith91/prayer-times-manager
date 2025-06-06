@@ -143,8 +143,8 @@ function ptm_admin_page() {
                         <th>Sunrise</th>
                         <th>Zuhr Begins</th>
                         <th>Zuhr Iqamah</th>
-                        <th>First Ju'muah</th>
-                        <th>Second Ju'muah</th>
+                        <th>First Jumu'ah</th>
+                        <th>Second Jumu'ah</th>
                         <th>Asr Begins</th>
                         <th>Asr Iqamah</th>
                         <th>Maghrib Begins</th>
@@ -186,7 +186,11 @@ function ptm_admin_page() {
                                     $value = $value ? date('H:i', strtotime($value)) : '';
                                 ?>
                                     <td>
-                                        <input type="time" step="60" name="prayer_times[<?php echo intval($row->id); ?>][<?php echo esc_attr($field); ?>]" value="<?php echo esc_attr($value); ?>">
+                                        <input 
+                                            type="time" 
+                                            step="60" 
+                                            name="prayer_times[<?php echo intval($row->id); ?>][<?php echo esc_attr($field); ?>]" 
+                                            value="<?php echo esc_attr($value); ?>">
                                     </td>
                                 <?php endforeach; ?>
                             </tr>
@@ -209,6 +213,9 @@ function ptm_admin_page() {
 add_action('admin_post_ptm_update', 'ptm_handle_update');
 
 function ptm_handle_update() {
+
+    error_log( print_r( $_POST['prayer_times'], true ) );
+
     if (!current_user_can('manage_options')) {
         wp_die('Not allowed');
     }
@@ -224,6 +231,7 @@ function ptm_handle_update() {
             $fields = [
                 'fajr_begins', 'fajr_iqamah', 'sunrise_begins',
                 'zuhr_begins', 'zuhr_iqamah',
+                'jumuah_first', 'jumuah_second',
                 'asr_begins', 'asr_iqamah',
                 'maghrib_begins', 'maghrib_iqamah',
                 'isha_begins', 'isha_iqamah'
