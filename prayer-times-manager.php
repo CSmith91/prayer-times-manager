@@ -385,6 +385,8 @@ function ptm_get_prayer_time($atts) {
         'maghrib_iqamah'=> 'maghrib_iqamah',
         'isha_start'    => 'isha_begins',
         'isha_iqamah'   => 'isha_iqamah',
+        'jumuah_first' => 'jumuah_first',
+        'jumuah_second' => 'jumuah_second'
     );
 
     if (!array_key_exists($prayer, $prayer_columns)) {

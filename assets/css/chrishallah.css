@@ -3,6 +3,7 @@
     --gold: #9aa54a;
     --text-brown: #3c3c23;
     --pale-green: #5cb574;
+    --jumuah: rgb(0, 110, 255);
     --soft-background: #f4f4f4;
     --hover-highlight: #e8f5e8;
 }
@@ -108,6 +109,21 @@ body {
     display: block;
     font-size: 1em;
     color: var(--gold);
+    font-weight: bold;
+}
+
+.prayer-jumuah-first {
+    display: block;
+    font-size: 1em;
+    color: var(--jumuah);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.prayer-jumuah-second {
+    display: block;
+    font-size: 1em;
+    color: var(--jumuah);
     font-weight: bold;
 }
 

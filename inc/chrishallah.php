@@ -80,27 +80,42 @@ if (!defined('ABSPATH')) {
                 );
 
                 // Render each prayer cell
-                foreach ( $prayers as $prayerName => $fields ) :
-            ?>
-                <div class="prayer-cell" id="<?php echo esc_attr( $prayerName ); ?>-cell">
-                    <?php if ( ! empty( $prayerIcons[ $prayerName ] ) ) : ?>
-                        <i class="<?php echo esc_attr( $prayerIcons[ $prayerName ] ); ?> prayer-icon"></i>
-                    <?php endif; ?>
-                    <span class="prayer-name"><?php echo esc_html( $prayerName ); ?></span>
-                    <span class="prayer-times-container">
-                        <span class="prayer-time">
-                            <?php echo esc_html( $labels['start'] ); ?><br>
-                            <?php echo do_shortcode( '[prayer_time prayer="' . $fields[0] . '"]' ); ?>
-                        </span>
-                        <?php if ( isset( $fields[1] ) ) : ?>
-                            <span class="prayer-iqamah">
-                                <?php echo esc_html( $labels['iqamah'] ); ?><br>
-                                <?php echo do_shortcode( '[prayer_time prayer="' . $fields[1] . '"]' ); ?>
-                            </span>
+                foreach ($prayers as $prayerName => $fields): ?>
+                    <div class="prayer-cell" id="<?php echo esc_attr( $prayerName ); ?>-cell">
+                      <!-- Icon and name here... -->
+                        <?php if (!empty($prayerIcons[$prayerName])): ?>
+                            <i class="<?php echo esc_attr($prayerIcons[$prayerName]); ?> prayer-icon"></i>
                         <?php endif; ?>
-                    </span>
-                </div>
-            <?php endforeach; ?>
+                        <span class="prayer-name"><?php echo esc_html( $prayerName ); ?></span>
+                      <div class="prayer-times-container">
+                        <?php if ($is_friday && $prayerName == "Jumu'ah"): ?>
+                          <!-- Jumu‘ah: use custom labels -->
+                          <div class="prayer-jumuah-first">
+                            <?php echo esc_html( $labels['jumuah_first'] ); ?><br>
+                            <?php echo do_shortcode('[prayer_time prayer="' . $fields[0] . '"]'); ?>
+                          </div>
+                          <?php if (isset($fields[1])): ?>
+                            <div class="prayer-jumuah-second">
+                              <?php echo esc_html( $labels['jumuah_second'] ); ?><br>
+                              <?php echo do_shortcode('[prayer_time prayer="' . $fields[1] . '"]'); ?>
+                            </div>
+                          <?php endif; ?>
+                        <?php else: ?>
+                          <!-- Standard labels for other prayers -->
+                          <div class="prayer-time">
+                            <?php echo esc_html( $labels['start'] ); ?><br>
+                            <?php echo do_shortcode('[prayer_time prayer="' . $fields[0] . '"]'); ?>
+                          </div>
+                          <?php if (isset($fields[1])): ?>
+                            <div class="prayer-iqamah">
+                              <?php echo esc_html( $labels['iqamah'] ); ?><br>
+                              <?php echo do_shortcode('[prayer_time prayer="' . $fields[1] . '"]'); ?>
+                            </div>
+                          <?php endif; ?>
+                        <?php endif; ?>
+                      </div>
+                    </div>
+                  <?php endforeach; ?>
         </div>
     </div>
 </div>
