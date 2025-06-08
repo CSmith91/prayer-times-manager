@@ -134,6 +134,25 @@ function ptm_admin_page() {
         <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="margin-top:20px;">
             <?php wp_nonce_field('ptm_update_nonce', 'ptm_update_nonce_field'); ?>
             <input type="hidden" name="action" value="ptm_update">
+            <div style="margin-bottom: 10px;">
+                <label>Bulk set Jumu‘ah times:</label>
+                <input type="time" id="bulk_jumuah_first" step="60">
+                <input type="time" id="bulk_jumuah_second" step="60">
+                <button type="button" id="bulk_apply">Apply to all</button>
+            </div>
+            <script>
+            document.getElementById('bulk_apply').addEventListener('click', function() {
+            const f = document.getElementById('bulk_jumuah_first').value;
+            const s = document.getElementById('bulk_jumuah_second').value;
+            document.querySelectorAll('tr.friday-row').forEach(row => {
+                const inputs = row.querySelectorAll('input[type="time"]');
+                if (inputs.length >= 7) {
+                inputs[5].value = f;
+                inputs[6].value = s;
+                }
+            });
+            });
+            </script>
             <table class="wp-list-table widefat fixed striped">
                 <thead>
                     <tr>
