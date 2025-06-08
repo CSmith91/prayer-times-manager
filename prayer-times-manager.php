@@ -171,6 +171,8 @@ function ptm_admin_page() {
                                     'sunrise_begins',
                                     'zuhr_begins',
                                     'zuhr_iqamah',
+                                    'jumuah_first', //new
+                                    'jumuah_second', // new
                                     'asr_begins',
                                     'asr_iqamah',
                                     'maghrib_begins',
