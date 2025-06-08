@@ -64,8 +64,8 @@ function ptm_prayer_times_shortcode($atts) {
                     <th>Fajr Begins</th>
                     <th>Fajr Iqamah</th>
                     <th>Sunrise</th>
-                    <th>Zuhr Begins</th>
-                    <th>Zuhr Iqamah</th>
+                    <th>Zuhr Begins / First Jumu'ah</th>
+                    <th>Zuhr Iqamah / Second Jumu'ah</th>
                     <th>Asr Begins</th>
                     <th>Asr Iqamah</th>
                     <th>Maghrib Begins</th>
@@ -89,8 +89,16 @@ function ptm_prayer_times_shortcode($atts) {
                         <td><?php echo esc_html(substr($row->fajr_begins, 0, 5)); ?></td>
                         <td><?php echo esc_html(substr($row->fajr_iqamah, 0, 5)); ?></td>
                         <td><?php echo esc_html(substr($row->sunrise_begins, 0, 5)); ?></td>
-                        <td><?php echo esc_html(substr($row->zuhr_begins, 0, 5)); ?></td>
-                        <td><?php echo esc_html(substr($row->zuhr_iqamah, 0, 5)); ?></td>
+                        <?php if ($is_friday): 
+                            $first   = !empty($row->jumuah_first)  ? $row->jumuah_first  : $row->zuhr_begins;
+                            $second  = !empty($row->jumuah_second) ? $row->jumuah_second : $row->zuhr_iqamah;
+                        ?>
+                            <td><?php echo esc_html(substr($first, 0, 5)); ?></td>
+                            <td><?php echo esc_html(substr($second, 0, 5)); ?></td>
+                        <?php else: ?>
+                            <td><?php echo esc_html(substr($row->zuhr_begins, 0, 5)); ?></td>
+                            <td><?php echo esc_html(substr($row->zuhr_iqamah, 0, 5)); ?></td>
+                        <?php endif; ?>
                         <td><?php echo esc_html(substr($row->asr_begins, 0, 5)); ?></td>
                         <td><?php echo esc_html(substr($row->asr_iqamah, 0, 5)); ?></td>
                         <td><?php echo esc_html(substr($row->maghrib_begins, 0, 5)); ?></td>
